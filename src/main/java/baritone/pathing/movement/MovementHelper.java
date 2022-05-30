@@ -140,7 +140,20 @@ public interface MovementHelper extends ActionCosts, Helper {
         if (block instanceof BlockCauldron) {
             return false;
         }
-        return block.isPassable(bsi.access, bsi.isPassableBlockPos.setPos(x, y, z));
+        /* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: MovementHelper.java, Line: 84
+				return canWalkThrough(new BlockStateInterface(ctx),pos.x,pos.y,pos.z);
+				 Information is passed through the method call via new BlockStateInterface(ctx) to the formal param bsi of the method. This later results into a null pointer dereference. inside field isPassableBlockPos ( from class BlockStateInterface).
+			File: MovementHelper.java, Line: 88
+				return canWalkThrough(bsi,x,y,z,bsi.get0(x,y,z));
+				 Information is passed through the method call via bsi to the formal param bsi of the method. This later results into a null pointer dereference. inside field isPassableBlockPos ( from class BlockStateInterface).
+			File: MovementHelper.java, Line: 143
+				return block.isPassable(bsi.access,bsi.isPassableBlockPos.setPos(x,y,z));
+				isPassableBlockPos is referenced in method invocation.
+		*/
+		return block.isPassable(bsi.access, bsi.isPassableBlockPos.setPos(x, y, z));
     }
 
     /**
