@@ -168,7 +168,28 @@ public final class CachedChunk {
     }
 
     private final void setSpecial() {
-        for (Map.Entry<String, List<BlockPos>> entry : specialBlockLocations.entrySet()) {
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: CachedRegion.java, Line: 293
+				this.chunks[x][z]=new CachedChunk(chunkX,chunkZ,bitSets[x][z],overview[x][z],location[x][z],cacheTimestamp[x][z]);
+				 Information is passed through the method call via location[x][z] to the formal param specialBlockLocations of the method. This later results into a null pointer dereference.
+			File: CachedChunk.java, Line: 137
+				Map<String,List<BlockPos>> specialBlockLocations
+				Variable specialBlockLocations is declared as a formal parameter.
+			File: CachedChunk.java, Line: 145
+				this.specialBlockLocations=specialBlockLocations;
+				specialBlockLocations is used to assign a value.
+			File: CachedChunk.java, Line: 151
+				setSpecial();
+				 Information about field specialBlockLocations (from class CachedChunk) is passed through the method call. This later results into a null pointer dereference
+			File: CachedChunk.java, Line: 157
+				specialBlockLocations.entrySet()
+				specialBlockLocations is referenced in method invocation.
+				The expression is enclosed inside an Enhanced For statement.
+		*/
+		for (Map.Entry<String, List<BlockPos>> entry : specialBlockLocations.entrySet()) {
             for (BlockPos pos : entry.getValue()) {
                 special.put(getPositionIndex(pos.getX(), pos.getY(), pos.getZ()), entry.getKey());
             }
