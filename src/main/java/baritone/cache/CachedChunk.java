@@ -144,7 +144,21 @@ public final class CachedChunk {
         this.heightMap = new int[256];
         this.specialBlockLocations = specialBlockLocations;
         this.cacheTimestamp = cacheTimestamp;
-        if (specialBlockLocations.isEmpty()) {
+        /* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: CachedRegion.java, Line: 293
+				this.chunks[x][z]=new CachedChunk(chunkX,chunkZ,bitSets[x][z],overview[x][z],location[x][z],cacheTimestamp[x][z]);
+				 Information is passed through the method call via location[x][z] to the formal param specialBlockLocations of the method. This later results into a null pointer dereference.
+			File: CachedChunk.java, Line: 145
+				this.specialBlockLocations=specialBlockLocations;
+				specialBlockLocations is used to assign a value.
+			File: CachedChunk.java, Line: 147
+				specialBlockLocations.isEmpty()
+				specialBlockLocations is referenced in method invocation.
+				The expression is enclosed inside an If statement.
+		*/
+		if (specialBlockLocations.isEmpty()) {
             this.special = null;
         } else {
             this.special = new Int2ObjectOpenHashMap<>();
