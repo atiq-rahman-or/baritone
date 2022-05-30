@@ -222,7 +222,27 @@ public final class CachedChunk {
                 heightMap[index] = 0;
                 for (int y = 256; y >= 0; y--) {
                     int i = getPositionIndex(x, y, z);
-                    if (data.get(i) || data.get(i + 1)) {
+                    /* ********OpenRefactory Warning********
+					 Possible null pointer Dereference!
+					 Path: 
+						File: CachedRegion.java, Line: 293
+							this.chunks[x][z]=new CachedChunk(chunkX,chunkZ,bitSets[x][z],overview[x][z],location[x][z],cacheTimestamp[x][z]);
+							 Information is passed through the method call via bitSets[x][z] to the formal param data of the method. This later results into a null pointer dereference.
+						File: CachedChunk.java, Line: 137
+							BitSet data
+							Variable data is declared as a formal parameter.
+						File: CachedChunk.java, Line: 142
+							this.data=data;
+							data is used to assign a value.
+						File: CachedChunk.java, Line: 153
+							calculateHeightMap();
+							 Information about field data (from class CachedChunk) is passed through the method call. This later results into a null pointer dereference
+						File: CachedChunk.java, Line: 211
+							data.get(i)
+							data is referenced in method invocation.
+							The expression is enclosed inside an If statement.
+					*/
+					if (data.get(i) || data.get(i + 1)) {
                         heightMap[index] = y;
                         break;
                     }
