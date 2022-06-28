@@ -91,7 +91,18 @@ public class BlockStateInterface {
     }
 
     public static IBlockState get(IPlayerContext ctx, BlockPos pos) {
-        return new BlockStateInterface(ctx).get0(pos.getX(), pos.getY(), pos.getZ()); // immense iq
+        
+		/* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: WaypointBehavior.java, Line: 52
+				IBlockState state=BlockStateInterface.get(ctx,pos);
+				 Information is passed through the method call via pos to the formal param pos of the method. This later results into a null pointer dereference.
+			File: BlockStateInterface.java, Line: 94
+				return new BlockStateInterface(ctx).get0(pos.getX(),pos.getY(),pos.getZ());
+				pos is referenced in method invocation.
+		*/
+		return new BlockStateInterface(ctx).get0(pos.getX(), pos.getY(), pos.getZ()); // immense iq
         // can't just do world().get because that doesn't work for out of bounds
         // and toBreak and stuff fails when the movement is instantiated out of load range but it's not able to BlockStateInterface.get what it's going to walk on
     }
