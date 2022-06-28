@@ -195,7 +195,17 @@ public class SettingsUtil {
         }
         Class intendedType = setting.getValueClass();
         ISettingParser ioMethod = Parser.getParser(setting.getType());
-        Object parsed = ioMethod.parse(new ParserContext(setting), settingValue);
+        /* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: SettingsUtil.java, Line: 197
+				ISettingParser ioMethod=Parser.getParser(setting.getType());
+				Parser.getParser(setting.getType()) is used in initialization.
+			File: SettingsUtil.java, Line: 198
+				Object parsed=ioMethod.parse(new ParserContext(setting),settingValue);
+				ioMethod is referenced in method invocation.
+		*/
+		Object parsed = ioMethod.parse(new ParserContext(setting), settingValue);
         if (!intendedType.isInstance(parsed)) {
             throw new IllegalStateException(ioMethod + " parser returned incorrect type, expected " + intendedType + " got " + parsed + " which is " + parsed.getClass());
         }
