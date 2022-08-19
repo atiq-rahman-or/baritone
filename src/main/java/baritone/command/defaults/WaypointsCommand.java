@@ -175,7 +175,16 @@ public class WaypointsCommand extends Command {
                 while (args.hasAny()) {
                     long timestamp = args.getAs(Long.class);
                     for (IWaypoint waypoint : deletedWaypoints) {
-                        if (waypoint.getCreationTimestamp() == timestamp) {
+                        
+						/* ********OpenRefactory Warning********
+						 Possible null pointer Dereference!
+						 Path: 
+							File: WaypointsCommand.java, Line: 178
+								waypoint.getCreationTimestamp()
+								waypoint is referenced in method invocation.
+								The expression is enclosed inside an If statement.
+						*/
+						if (waypoint.getCreationTimestamp() == timestamp) {
                             waypoints.add(waypoint);
                             break;
                         }
